@@ -1,4 +1,5 @@
 from tkinter import *
+from datetime import datetime
 import tkinter as tk
 import tkinter.scrolledtext as tkscrolled
 import sqlite3
@@ -36,7 +37,9 @@ class Notatnik():
     def dodaj(self):
         self.notka = self.textfield.get("1.0", END)
         print(self.notka)
-        self.c.execute('''INSERT INTO notatki (data, nazwa, notatka) VALUES ('dzis', 'Notatka1', ?)''', (self.notka,))
+        now = datetime.now()
+        print(now)
+        self.c.execute('''INSERT INTO notatki (data, nazwa, notatka) VALUES (?, 'Notatka1', ?)''', (now, self.notka,))
         conn.commit()
 
 
