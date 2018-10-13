@@ -28,18 +28,23 @@ class Notatnik():
 
     def new_note(self):
         self.newWindow = tk.Toplevel(self.master)
+        self.dodtyt = tk.Label(self.newWindow, text="DODAJ TYTUŁ", font=('Calibri Light', 15))
+        self.dodtyt.grid(column=0, row=0)
+        self.tytul = tk.Entry(self.newWindow, width=40)
+        self.tytul.grid(column=1, row=0)
         self.textfield = tkscrolled.ScrolledText(self.newWindow)
-        self.textfield.pack()
+        self.textfield.grid(columnspan=2)
         self.addButton = Button(
             self.newWindow, text="Dodaj!", command=self.dodaj)
-        self.addButton.pack(side=BOTTOM)
+        self.addButton.grid(columnspan=2)
 
     def dodaj(self):
         self.notka = self.textfield.get("1.0", END)
+        self.nazwanotki = self.tytul.get()
         print(self.notka)
         now = datetime.now()
         print(now)
-        self.c.execute('''INSERT INTO notatki (data, nazwa, notatka) VALUES (?, 'Notatka1', ?)''', (now, self.notka,))
+        self.c.execute('''INSERT INTO notatki (data, nazwa, notatka) VALUES (?, ?, ?)''', (now, self.nazwanotki, self.notka,))
         conn.commit()
 
 
