@@ -19,7 +19,7 @@ class Notatnik():
         self.btn.pack(fill=BOTH, expand=1)
 
         self.btn2 = Button(master, bg="lightblue",
-                           text="ODCZYTAJ NOTATKĘ", font=('Calibri Light', 20))
+                           text="ODCZYTAJ NOTATKĘ", font=('Calibri Light', 20), command=self.odczytaj)
         self.btn2.pack(fill=BOTH, expand=1)
 
         self.c = conn.cursor()
@@ -38,6 +38,18 @@ class Notatnik():
             self.newWindow, text="Dodaj!", command=self.dodaj)
         self.addButton.grid(columnspan=2)
 
+    def readfromdatabase(self):
+        self.c.execute("SELECT * FROM notatki ")
+        return self.c.fetchall()
+    
+
+    def odczytaj(self):
+        data = self.readfromdatabase()
+        self.newWindow1 = tk.Toplevel(self.master)
+        self.labelOdczyt = tk.Label(self.newWindow1, text=data, font=('Calibri Light', 15))
+        self.labelOdczyt.pack()
+        
+    
     def dodaj(self):
         self.notka = self.textfield.get("1.0", END)
         self.nazwanotki = self.tytul.get()
@@ -46,6 +58,7 @@ class Notatnik():
         print(now)
         self.c.execute('''INSERT INTO notatki (data, nazwa, notatka) VALUES (?, ?, ?)''', (now, self.nazwanotki, self.notka,))
         conn.commit()
+        self.newWindow.destroy()
 
 
 root=tk.Tk()
