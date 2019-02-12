@@ -24,8 +24,8 @@ class Notatnik():
         self.btn2.pack(fill=BOTH, expand=1)
 
         self.c = conn.cursor()
-        self.c.execute('''CREATE TABLE IF NOT EXISTS notatki
-             (data text, nazwa text, notatka text)''')
+        self.c.execute('''CREATE VIRTUAL TABLE IF NOT EXISTS notatki USING FTS5
+             (data, nazwa, notatka)''')
 
     def new_note(self):
         self.newWindow = tk.Toplevel(self.master)
@@ -42,7 +42,7 @@ class Notatnik():
 
     def searchDatabase(self, searchQuery):
         self.c.execute(
-            '''SELECT * FROM notatki WHERE nazwa = ? ''', (searchQuery,))
+            '''SELECT * FROM notatki WHERE nazwa = ? COLLATE NOCASE''', (searchQuery,))
         self.searchResult = self.c.fetchall()
         conn.commit()
         print(searchQuery)
