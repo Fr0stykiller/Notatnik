@@ -45,6 +45,7 @@ class Notatnik():
             '''SELECT * FROM notatki WHERE nazwa = ? ''', (searchQuery,))
         self.searchResult = self.c.fetchall()
         conn.commit()
+        print(searchQuery)
         print(self.searchResult)
         return self.c.fetchall()
 
@@ -67,7 +68,7 @@ class Notatnik():
         self.szukajte = tk.Entry(self.newWindow1, width=40)
         self.szukajte.grid(column=0, row=6)
         self.szukajtb = Button(
-            self.newWindow1, text="Szukaj!", command=self.searchDatabase("kicia"))
+            self.newWindow1, text="Szukaj!", command=lambda: self.searchDatabase(self.szukajte.get()))
         self.szukajtb.grid(column=0, row=7)
         # self.labelOdczyt = tk.Label(self.newWindow1, text=data, font=('Calibri Light', 15))
         # self.labelOdczyt.grid(column=0, row=3)
