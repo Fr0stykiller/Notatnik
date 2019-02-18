@@ -47,7 +47,7 @@ class Notatnik():
         conn.commit()
         print(searchQuery)
         print(self.searchResult)
-        return self.c.fetchall()
+        return self.searchResult
 
     def odczytaj(self):
         self.newWindow1 = tk.Toplevel(self.master)
@@ -67,11 +67,21 @@ class Notatnik():
         self.szukajt.grid(column=0, row=5)
         self.szukajte = tk.Entry(self.newWindow1, width=40)
         self.szukajte.grid(column=0, row=6)
+        #self.szukajtb = Button(
+        #    self.newWindow1, text="Szukaj!", command=lambda: self.searchDatabase(self.szukajte.get()))
         self.szukajtb = Button(
-            self.newWindow1, text="Szukaj!", command=lambda: self.searchDatabase(self.szukajte.get()))
+            self.newWindow1, text="Szukaj!", command=self.wyniki)
         self.szukajtb.grid(column=0, row=7)
         # self.labelOdczyt = tk.Label(self.newWindow1, text=data, font=('Calibri Light', 15))
         # self.labelOdczyt.grid(column=0, row=3)
+
+    def wyniki(self):
+        self.newWindow2 = tk.Toplevel(self.master)
+        self.resultLabel = tk.Label(self.newWindow2, text=(str(self.searchDatabase(self.szukajte.get()))))
+        lista = self.searchDatabase(self.szukajte.get())
+        print("Lista to: "+str(lista))
+        self.resultLabel.grid(column=0, row=0)
+
 
     def dodaj(self):
         self.notka = self.textfield.get("1.0", END)
