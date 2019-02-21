@@ -30,15 +30,14 @@ class Notatnik():
     def new_note(self):
         self.newWindow = tk.Toplevel(self.master)
         self.dodtyt = tk.Label(
-            self.newWindow, text="TYTUŁ:", font=('Calibri Light', 20))
-        self.dodtyt.grid(column=0, row=0, sticky='w')
-        self.tytul = tk.Entry(self.newWindow, width=85)
-        self.tytul.grid(column=1, row=0, sticky='w')
+            self.newWindow, text="DODAJ TYTUŁ", font=('Calibri Light', 15))
+        self.dodtyt.grid(column=0, row=0)
+        self.tytul = tk.Entry(self.newWindow, width=40)
+        self.tytul.grid(column=1, row=0)
         self.textfield = tkscrolled.ScrolledText(self.newWindow)
-        self.textfield.insert(INSERT, "kosjdksd")
         self.textfield.grid(columnspan=2)
         self.addButton = Button(
-            self.newWindow, text="DODAJ!", bg="LIGHTPINK", font=('Calibri Light', 20), command=self.dodaj)
+            self.newWindow, text="Dodaj!", command=self.dodaj)
         self.addButton.grid(columnspan=2)
 
     def searchDatabase(self, searchQuery):
@@ -52,21 +51,20 @@ class Notatnik():
 
     def odczytaj(self):
         self.newWindow1 = tk.Toplevel(self.master)
-        self.ramka1 = tk.Frame(self.newWindow1, bg='white', bd=10)
+        self.ramka1 = tk.Frame(self.newWindow1, bg='blue', bd=2)
         self.ramka1.grid()
         self.szukajd = tk.Label(
-            self.ramka1, text="SZUKAJ PO DACIE", font=('Calibri LIGHT', 25))
-        self.szukajd.grid(column=0, row=1)
+            self.ramka1, text="SZUKAJ PO DACIE", font=('Calibri Light', 15))
+        self.szukajd.grid(column=0, row=0)
         self.szukajde = Calendar(self.ramka1)
-        self.szukajde.grid(column=0, row=2)
-        self.szukajdb = Button(self.ramka1, text="SZUKAJ!", bg="slategray2", font=('Calibri Light', 15))
-        self.szukajdb.grid(column=0, row=4)
-        self.separator = Frame(self.newWindow1, height=3, width=300, bg="slategray4")
-        self.separator.grid(column=0, row=5)
+        self.szukajde.grid(column=0, row=1)
+        self.szukajdb = Button(self.ramka1, text="Szukaj!")
+        self.szukajdb.grid(column=0, row=2)
+        self.separator = Frame(self.newWindow1, height=2, bd=1)
+        self.separator.grid(column=1, row=4)
         self.szukajt = tk.Label(
-            self.newWindow1, text="SZUKAJ PO TYTULE", font=('Calibri Light', 25))
-        self.newWindow1.grid_columnconfigure(0, minsize=300)
-        self.szukajt.grid(column=0, row=6)
+            self.newWindow1, text="SZUKAJ PO TYTULE", font=('Calibri Light', 15))
+        self.szukajt.grid(column=0, row=5)
         self.szukajte = tk.Entry(self.newWindow1, width=40)
         self.szukajte.grid(column=0, row=7)
         self.szukajtb = Button(
@@ -77,6 +75,12 @@ class Notatnik():
         self.newWindow1.grid_rowconfigure(5, minsize=30)
         self.newWindow1.grid_rowconfigure(8, minsize=30)
         self.newWindow1.grid_rowconfigure(10, minsize=30)
+        self.szukajte.grid(column=0, row=6)
+        #self.szukajtb = Button(
+        #    self.newWindow1, text="Szukaj!", command=lambda: self.searchDatabase(self.szukajte.get()))
+        self.szukajtb = Button(
+            self.newWindow1, text="Szukaj!", command=self.wyniki)
+        self.szukajtb.grid(column=0, row=7)
         # self.labelOdczyt = tk.Label(self.newWindow1, text=data, font=('Calibri Light', 15))
         # self.labelOdczyt.grid(column=0, row=3)
         #comment
