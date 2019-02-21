@@ -68,26 +68,18 @@ class Notatnik():
         self.newWindow1.grid_columnconfigure(0, minsize=300)
         self.szukajt.grid(column=0, row=6)
         self.szukajte = tk.Entry(self.newWindow1, width=40)
-<<<<<<< HEAD
-        self.szukajte.grid(column=0, row=6)
-        #self.szukajtb = Button(
-        #    self.newWindow1, text="Szukaj!", command=lambda: self.searchDatabase(self.szukajte.get()))
-        self.szukajtb = Button(
-            self.newWindow1, text="Szukaj!", command=self.wyniki)
-        self.szukajtb.grid(column=0, row=7)
-=======
         self.szukajte.grid(column=0, row=7)
         self.szukajtb = Button(
-            self.newWindow1, text="SZUKAJ!", bg="slategray2", font=('Calibri Light', 15), command=lambda: self.searchDatabase(self.szukajte.get()))
+            self.newWindow1, text="SZUKAJ!", bg="slategray2", font=('Calibri Light', 15), command=self.wyniki)
         self.szukajtb.grid(column=0, row=9)
 
         self.newWindow1.grid_rowconfigure(3, minsize=10)
         self.newWindow1.grid_rowconfigure(5, minsize=30)
         self.newWindow1.grid_rowconfigure(8, minsize=30)
         self.newWindow1.grid_rowconfigure(10, minsize=30)
->>>>>>> b0796439920e674f38a9936925187f184be7e6e2
         # self.labelOdczyt = tk.Label(self.newWindow1, text=data, font=('Calibri Light', 15))
         # self.labelOdczyt.grid(column=0, row=3)
+        #comment
 
     def wyniki(self):
         self.newWindow2 = tk.Toplevel(self.master)
