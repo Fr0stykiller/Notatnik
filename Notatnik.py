@@ -1,5 +1,5 @@
 from tkinter import *
-from datetime import datetime
+from datetime import date
 import tkinter as tk
 import tkinter.scrolledtext as tkscrolled
 import sqlite3
@@ -35,7 +35,6 @@ class Notatnik():
         self.tytul = tk.Entry(self.newWindow, width=85)
         self.tytul.grid(column=1, row=0, sticky='w')
         self.textfield = tkscrolled.ScrolledText(self.newWindow)
-        self.textfield.insert(INSERT, "kosjdksd")
         self.textfield.grid(columnspan=2)
         self.addButton = Button(
             self.newWindow, text="DODAJ!", bg="LIGHTPINK", font=('Calibri Light', 20), command=self.dodaj)
@@ -79,21 +78,27 @@ class Notatnik():
         self.newWindow1.grid_rowconfigure(10, minsize=30)
         # self.labelOdczyt = tk.Label(self.newWindow1, text=data, font=('Calibri Light', 15))
         # self.labelOdczyt.grid(column=0, row=3)
-        #comment
 
     def wyniki(self):
         self.newWindow2 = tk.Toplevel(self.master)
         self.resultLabel = tk.Label(self.newWindow2, text=(str(self.searchDatabase(self.szukajte.get()))))
-        lista = self.searchDatabase(self.szukajte.get())
+        self.lista = self.searchDatabase(self.szukajte.get())
+        for record in self.lista:
+            recordbutton = Button(self.newWindow2, text=record[1] +"|" + record[0], bg="slategray2", font=('Calibri Light', 15), command=lambda: self.pokazNotatke(record[2]))
+            recordbutton.pack()
         print("Lista to: "+str(lista))
         self.resultLabel.grid(column=0, row=0)
 
+    def pokazNotatke(self, Notka):
+        self.newWindow3 = tk.Toplevel(self.master)
+        self.notatkaLabel = Label(self.newWindow3, text = Notka)
+        self.notatkaLabel.pack()
 
     def dodaj(self):
         self.notka = self.textfield.get("1.0", END)
         self.nazwanotki = self.tytul.get()
         print(self.notka)
-        now = datetime.now()
+        now = date.today()
         print(now)
         self.c.execute('''INSERT INTO notatki (data, nazwa, notatka) VALUES (?, ?, ?)''',
                        (now, self.nazwanotki, self.notka,))
