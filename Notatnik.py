@@ -79,6 +79,7 @@ class Notatnik():
         self.newWindow1.grid_rowconfigure(10, minsize=30)
         # self.labelOdczyt = tk.Label(self.newWindow1, text=data, font=('Calibri Light', 15))
         # self.labelOdczyt.grid(column=0, row=3)
+        #comment
 
     def wyniki(self):
         self.newWindow2 = tk.Toplevel(self.master)
