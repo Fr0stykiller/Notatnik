@@ -1,5 +1,5 @@
 from tkinter import *
-from datetime import datetime
+from datetime import date
 import tkinter as tk
 import tkinter.scrolledtext as tkscrolled
 import sqlite3
@@ -87,17 +87,23 @@ class Notatnik():
 
     def wyniki(self):
         self.newWindow2 = tk.Toplevel(self.master)
-        self.resultLabel = tk.Label(self.newWindow2, text=(str(self.searchDatabase(self.szukajte.get()))))
+        self.resultLabel = Label(self.newWindow2, text=(str(self.searchDatabase(self.szukajte.get()))))
         lista = self.searchDatabase(self.szukajte.get())
+        for record in lista:
+            recordButton = tk.Button(self.newWindow2, text=record[1]+": "+record[0], command=lambda: self.pokazNotke(record))
+            recordButton.pack()
         print("Lista to: "+str(lista))
-        self.resultLabel.grid(column=0, row=0)
+        self.resultLabel.pack()
 
+    def pokazNotke(self, Notka):
+        self.newWindow3 = tk.Toplevel(self.master)
+        self.notatkaLabel = Label(self.newWindow3, text=Notka[2])
+        self.notatkaLabel.pack()
 
     def dodaj(self):
         self.notka = self.textfield.get("1.0", END)
         self.nazwanotki = self.tytul.get()
-        print(self.notka)
-        now = datetime.now()
+        now = date.today()
         print(now)
         self.c.execute('''INSERT INTO notatki (data, nazwa, notatka) VALUES (?, ?, ?)''',
                        (now, self.nazwanotki, self.notka,))
