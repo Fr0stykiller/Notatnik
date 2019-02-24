@@ -83,7 +83,6 @@ class Notatnik():
         self.szukajtb.grid(column=0, row=7)
         # self.labelOdczyt = tk.Label(self.newWindow1, text=data, font=('Calibri Light', 15))
         # self.labelOdczyt.grid(column=0, row=3)
-        #comment
 
     def wyniki(self):
         self.newWindow2 = tk.Toplevel(self.master)
